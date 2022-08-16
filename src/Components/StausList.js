@@ -19,7 +19,7 @@ const StatusList = (props) => {
             // }}
             >
 
-                {props.list.map((task) => (
+                {props.tasks.map((task) => (
 
                     props.status == task.status &&
                     < React.Fragment key={task.id} >

@@ -12,6 +12,7 @@ const Todo = () => {
         }
     }, [])
 
+
     // useEffect(() => {
     //     if (localStorage.getItem('localTasks')) {
     //         const storedList = JSON.parse(localStorage.getItem('localTasks'));
@@ -47,9 +48,8 @@ const Todo = () => {
             title: task.title,
             status: 'completed'
         }
-        let arr = tasks
+        let arr = [...tasks]
         arr[index] = obj
-        console.log(arr);
         setTasks(arr)
         localStorage.setItem('localTasks', JSON.stringify(arr));
     }
@@ -91,10 +91,10 @@ const Todo = () => {
             )} */}
             <div className='row justify-content-around'>
                 <div className='col-md-5'>
-                    <StatusList list={tasks} deleteHandler={deleteHandler} status={'pending'} doneHandler={doneHandler} />
+                    <StatusList tasks={tasks} deleteHandler={deleteHandler} status={'pending'} doneHandler={doneHandler} />
                 </div>
                 <div className='col-md-5'>
-                    <StatusList list={tasks} deleteHandler={deleteHandler} status={'completed'} />
+                    <StatusList tasks={tasks} deleteHandler={deleteHandler} status={'completed'} />
                 </div>
             </div>
 
