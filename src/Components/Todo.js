@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import StatusList from './StausList';
 
 const Todo = () => {
     const [task, setTask] = useState('');
@@ -11,11 +12,21 @@ const Todo = () => {
         }
     }, [])
 
+    // useEffect(() => {
+    //     if (localStorage.getItem('localTasks')) {
+    //         const storedList = JSON.parse(localStorage.getItem('localTasks'));
+    //         setTasks(storedList);
+    //     }
+    // }, [tasks])
+
+
+
     const addTask = (e) => {
         if (task) {
-            const newTask = { id: new Date().getTime().toString(), title: task };
+            const newTask = { id: new Date().getTime().toString(), title: task, status: 'pending' };
             setTasks([...tasks, newTask]);
-            localStorage.setItem('localTasks', JSON.stringify([...tasks, newTask]));
+            let taskssss = [...tasks, newTask]
+            localStorage.setItem('localTasks', JSON.stringify(taskssss));
             setTask('');
         }
     };
@@ -24,14 +35,27 @@ const Todo = () => {
         setTasks(deleted);
         localStorage.setItem('localTasks', JSON.stringify(deleted));
     };
-    const clearHandler = () => {
-        setTasks([]);
-        localStorage.removeItem('localTasks');
+    // const clearHandler = () => {
+    //     setTasks([]);
+    //     localStorage.removeItem('localTasks');
+    // }
+    const doneHandler = (task) => {
+        let index = tasks.indexOf(task)
+        console.log(index);
+        let obj = {
+            id: task.id,
+            title: task.title,
+            status: 'completed'
+        }
+        let arr = tasks
+        arr[index] = obj
+        console.log(arr);
+        setTasks(arr)
+        localStorage.setItem('localTasks', JSON.stringify(arr));
     }
     return (
         <div className='form-group row '>
-            <h1 className='mt-3 text-black'>ToDo List App</h1>
-            <div className='col-8'>
+            <div className='col-10'>
                 <input
                     name='task'
                     type='text'
@@ -41,13 +65,13 @@ const Todo = () => {
                     onChange={(e) => setTask(e.target.value)}
                 />
             </div>
-            <div className=' col-4'>
+            <div className=' col-2'>
                 <button className='btn btn-primary form-control material-icons '
                     onClick={addTask}>
                     add
                 </button>
             </div>
-            <div className="badge">
+            {/* <div className="badge text-black">
                 You have
                 {!tasks.length
                     ? " no tasks"
@@ -56,35 +80,24 @@ const Todo = () => {
                         : tasks.length > 1
                             ? ` ${tasks.length} tasks`
                             : null}
-            </div>
-            {tasks.map((task) => (
-                <React.Fragment key={task.id}>
-                    <div className='col-10'>
-                        <span className='form-control bg-white btn mt-2'
-                            style={{ textAlign: 'left', fontWeight: 'bold' }}>
-                            {task.title}
-                        </span>
-                    </div>
-                    <div className='col-1'>
-                        <button className='mt-2 btn btn-warning material-icons'>
-                            done
-                        </button>
-                    </div>
-                    <div className='col-1'>
-                        <button className='mt-2 btn btn-warning material-icons'
-                            onClick={() => deleteHandler(task)}>
-                            delete
-                        </button>
-                    </div>
-                </React.Fragment>
-            ))}
-            {!tasks.length ? null : (
+            </div> */}
+
+            {/* {!tasks.length ? null : (
                 <div>
                     <button className='btn btn-secondary mt-4 mb-4' onClick={() => clearHandler()}>
                         clear
                     </button>
                 </div>
-            )}
+            )} */}
+            <div className='row justify-content-around'>
+                <div className='col-md-5'>
+                    <StatusList list={tasks} deleteHandler={deleteHandler} status={'pending'} doneHandler={doneHandler} />
+                </div>
+                <div className='col-md-5'>
+                    <StatusList list={tasks} deleteHandler={deleteHandler} status={'completed'} />
+                </div>
+            </div>
+
         </div>
     )
 }
