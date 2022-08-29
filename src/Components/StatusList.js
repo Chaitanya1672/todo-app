@@ -1,25 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import StatusListStyles from './StatusList.module.css';
 const StatusList = (props) => {
-    // const [tasks, setTask] = useState([]);
-    // useEffect((
-    // ) => {
-    //     setTask(props.list)
-
-    // }, [props.list])
-
 
     return (
-        <div className='row mt-4'>
+        <div className='row mt-4 scroll'>
             {props.status == 'pending' ? <h2>Pending List</h2 > : <h2>Completed List</h2>}
-            <div className={StatusListStyles.exp}
-            // style={{
-            //     background: `lightblue`,
-            //     backgroundSize: 'cover'
-            // }}
+            <div className={`${StatusListStyles.exp} `}
+                style={{
+                    background: `lightblue`,
+                    backgroundSize: 'cover',
+                    maxHeight: "300px",
+                    overflowY: "auto"
+                }}
             >
 
-                {props.tasks.map((task) => (
+                {props.tasks.map((task, i) => (
 
                     props.status == task.status &&
                     < React.Fragment key={task.id} >
@@ -33,7 +28,7 @@ const StatusList = (props) => {
                             {props.status == "pending" &&
                                 <div className='col-md-2'>
                                     <button className='mt-2 btn btn-warning material-icons'
-                                        onClick={() => props.doneHandler(task)}>
+                                        onClick={() => props.doneHandler(task, i)}>
                                         done
                                     </button>
                                 </div>}

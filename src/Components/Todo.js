@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import StatusList from './StausList';
+import StatusList from './StatusList';
 
 const Todo = () => {
     const [task, setTask] = useState('');
@@ -11,16 +11,6 @@ const Todo = () => {
             setTasks(storedList);
         }
     }, [])
-
-
-    // useEffect(() => {
-    //     if (localStorage.getItem('localTasks')) {
-    //         const storedList = JSON.parse(localStorage.getItem('localTasks'));
-    //         setTasks(storedList);
-    //     }
-    // }, [tasks])
-
-
 
     const addTask = (e) => {
         if (task) {
@@ -36,13 +26,12 @@ const Todo = () => {
         setTasks(deleted);
         localStorage.setItem('localTasks', JSON.stringify(deleted));
     };
-    // const clearHandler = () => {
-    //     setTasks([]);
-    //     localStorage.removeItem('localTasks');
-    // }
+    const clearHandler = () => {
+        setTasks([]);
+        localStorage.removeItem('localTasks');
+    }
     const doneHandler = (task) => {
         let index = tasks.indexOf(task)
-        console.log(index);
         let obj = {
             id: task.id,
             title: task.title,
@@ -71,33 +60,24 @@ const Todo = () => {
                     add
                 </button>
             </div>
-            {/* <div className="badge text-black">
-                You have
-                {!tasks.length
-                    ? " no tasks"
-                    : tasks.length === 1
-                        ? " 1 task"
-                        : tasks.length > 1
-                            ? ` ${tasks.length} tasks`
-                            : null}
-            </div> */}
 
-            {/* {!tasks.length ? null : (
+            <div className='row gx-5 justify-content-around'>
+                <div className='col-md-6'>
+                    <StatusList tasks={tasks} deleteHandler={deleteHandler} status={'pending'} doneHandler={doneHandler} />
+                </div>
+                <div className='col-md-6'>
+                    <StatusList tasks={tasks} deleteHandler={deleteHandler} status={'completed'} />
+                </div>
+            </div>
+            {/* <StatusList tasks={tasks.filter((task) => task.status === 'pending')} deleteHandler={deleteHandler} doneHandler={doneHandler} /> */}
+
+            {!tasks.length ? null : (
                 <div>
                     <button className='btn btn-secondary mt-4 mb-4' onClick={() => clearHandler()}>
                         clear
                     </button>
                 </div>
-            )} */}
-            <div className='row justify-content-around'>
-                <div className='col-md-5'>
-                    <StatusList tasks={tasks} deleteHandler={deleteHandler} status={'pending'} doneHandler={doneHandler} />
-                </div>
-                <div className='col-md-5'>
-                    <StatusList tasks={tasks} deleteHandler={deleteHandler} status={'completed'} />
-                </div>
-            </div>
-
+            )}
         </div>
     )
 }

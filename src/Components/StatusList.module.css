@@ -3,3 +3,7 @@
     background-size: cover;
     border-radius: 4px;
 }
+.scroll{
+    max-height: 100px;
+    overflow-y: auto;
+}
