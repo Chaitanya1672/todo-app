@@ -16,8 +16,8 @@ const Todo = () => {
         if (task) {
             const newTask = { id: new Date().getTime().toString(), title: task, status: 'pending' };
             setTasks([...tasks, newTask]);
-            let taskssss = [...tasks, newTask]
-            localStorage.setItem('localTasks', JSON.stringify(taskssss));
+            let taskss = [...tasks, newTask]
+            localStorage.setItem('localTasks', JSON.stringify(taskss));
             setTask('');
         }
     };

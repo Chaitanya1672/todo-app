@@ -1,11 +1,11 @@
 import React from 'react';
-import StatusListStyles from './StatusList.module.css';
+import Styles from './StatusList.module.css';
 const StatusList = (props) => {
 
     return (
         <div className='row mt-4 scroll'>
             {props.status == 'pending' ? <h2>Pending List</h2 > : <h2>Completed List</h2>}
-            <div className={`${StatusListStyles.exp} `}>
+            <div className={`${Styles.exp} `}>
 
                 {props.tasks.map((task, i) => (
 
@@ -14,7 +14,8 @@ const StatusList = (props) => {
                         <div className='row'>
                             <div className='col-md-8'>
                                 <span className='form-control bg-white btn mt-2 mb-2'
-                                    style={{ textAlign: 'left', fontWeight: 'bold' }}>
+                                    style={{ textAlign: 'left', fontWeight: 'bold' }}
+                                >
                                     {task.title}
                                 </span>
                             </div>
