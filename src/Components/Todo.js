@@ -26,9 +26,14 @@ const Todo = () => {
         setTasks(deleted);
         localStorage.setItem('localTasks', JSON.stringify(deleted));
     };
+
+    const pendingTasksCompleted = tasks.filter((task) => task.status === 'pending')
     const clearHandler = () => {
-        setTasks([]);
-        localStorage.removeItem('localTasks');
+        if (pendingTasksCompleted.length === 0) {
+            setTasks([]);
+            localStorage.removeItem('localTasks');
+        }
+
     }
     const doneHandler = (task) => {
         let index = tasks.indexOf(task)
@@ -72,10 +77,12 @@ const Todo = () => {
             {/* <StatusList tasks={tasks.filter((task) => task.status === 'pending')} deleteHandler={deleteHandler} doneHandler={doneHandler} /> */}
 
             {!tasks.length ? null : (
-                <div>
+                <div className='text-center'>{
+                    pendingTasksCompleted.length === 0 &&
                     <button className='btn btn-secondary mt-4 mb-4' onClick={() => clearHandler()}>
                         clear
                     </button>
+                }
                 </div>
             )}
         </div>
