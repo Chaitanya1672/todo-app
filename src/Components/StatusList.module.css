@@ -1,9 +1,13 @@
-.exp{
+.exp {
     background: rgb(113, 165, 182);
     background-size: cover;
     border-radius: 4px;
+    background-size: cover;
+    max-height: 300px;
+    overflow-y: auto;
 }
-.scroll{
+
+.scroll {
     max-height: 100px;
     overflow-y: auto;
 }

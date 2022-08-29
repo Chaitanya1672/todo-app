@@ -1,18 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import StatusListStyles from './StatusList.module.css';
 const StatusList = (props) => {
 
     return (
         <div className='row mt-4 scroll'>
             {props.status == 'pending' ? <h2>Pending List</h2 > : <h2>Completed List</h2>}
-            <div className={`${StatusListStyles.exp} `}
-                style={{
-                    background: `lightblue`,
-                    backgroundSize: 'cover',
-                    maxHeight: "300px",
-                    overflowY: "auto"
-                }}
-            >
+            <div className={`${StatusListStyles.exp} `}>
 
                 {props.tasks.map((task, i) => (
 
